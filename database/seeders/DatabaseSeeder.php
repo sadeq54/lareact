@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enum\PermissionsEnum;
 use App\Enum\RolesEnum;
+use App\Models\Feature;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -56,5 +57,7 @@ public function run(): void
             'name' => 'Commenter User',
             'email' => 'commenter@example.com',
         ])->assignRole(RolesEnum::Commenter);
+
+        Feature::factory(100)->create();
     }
 }
