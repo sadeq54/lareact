@@ -34,19 +34,21 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
+
+        error_log(" here");
         $data = $request->validate([
             'title' => ['required' , 'string'],
             'description' => ['nullable','string'],
         ]);
+        
         $data['user_id'] = auth()->id;
 
 
-        $feature = Feature::create($data);
+         Feature::create($data);
 
 
-        return redirect()->route('features.index')->with('success', 'Feature created successfully');
-    }
-
+         return redirect()->route('feature.index')->with('success', 'Feature created successfully.');    }
+   
     /**
      * Display the specified resource.
      */
