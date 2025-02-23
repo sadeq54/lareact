@@ -9,17 +9,17 @@ import { Feature, PaginatedData } from "@/types";
 import { Head, useForm } from "@inertiajs/react";
 import { FormEventHandler } from "react";
 
-export default function Create() {
+export default function Edit({feature}:{feature:Feature}) {
 
-    const { data, setData, post, errors, processing } = useForm({
-        name: "",
-        description: "",
+    const { data, setData,  errors, processing , put } = useForm({
+        name: feature.name,
+        description: feature.description,
     });
 
-    const createFeature: FormEventHandler = (ev) => {
+    const updateFeature: FormEventHandler = (ev) => {
         ev.preventDefault();
         console.log("Form data:", data); // Debugging
-        post(route("feature.store"), {
+        put(route("feature.update", feature.id), {
             preserveScroll: true,
             onSuccess: () => {
                 console.log("Form submitted successfully!");
@@ -34,15 +34,15 @@ export default function Create() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800 dark:text-gray-200">
-                    Create Feature
+                    Edit Feaure <b>{feature.name }</b>
                 </h2>
             }
         >
-            <Head title="Create new feature" />
+            <Head title= {"update feature" + feature.name} />
 
             <div className="mb-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                 <div className="p-6 text-gray-900 dark:text-gray-100 flex gap-8">
-                    <form onSubmit={createFeature} className="w-full">
+                    <form onSubmit={updateFeature} className="w-full">
                         <div className="mb-8">
                             <InputLabel htmlFor="name" value="Name" />
 
@@ -88,7 +88,7 @@ export default function Create() {
 
                         <div className="flex items-center gap-4">
                             <PrimaryButton disabled={processing}>
-                                Create
+                                Update
                             </PrimaryButton>
                         </div>
                     </form>

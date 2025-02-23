@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Resources\FeatureResource;
 use App\Models\Feature;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 
 class FeatureController extends Controller
@@ -35,13 +36,13 @@ class FeatureController extends Controller
     public function store(Request $request)
     {
 
-        error_log(" here");
+      
         $data = $request->validate([
-            'title' => ['required' , 'string'],
+            'name' => ['required' , 'string'],
             'description' => ['nullable','string'],
         ]);
         
-        $data['user_id'] = auth()->id;
+        $data['user_id'] = Auth::user()->id;
 
 
          Feature::create($data);
@@ -75,13 +76,13 @@ class FeatureController extends Controller
     public function update(Request $request, Feature $feature)
     {
         $data = $request->validate([
-            'title' => ['required' , 'string'],
+            'name' => ['required' , 'string'],
             'description' => ['nullable','string'],
         ]);
 
         $feature->update($data);
 
-        return redirect()->route('features.index')->with('success', 'Feature updated successfully');
+        return redirect()->route('feature.index')->with('success', 'Feature updated successfully');
     }
 
     /**
@@ -90,8 +91,7 @@ class FeatureController extends Controller
     public function destroy(Feature $feature)
     {
         $feature->delete();
-
-        return redirect()->route('features.index')->with('success', 'Feature deleted successfully');
+        return to_route('feature.index')->with('success', 'Feature deleted successfully');
         
 
     }

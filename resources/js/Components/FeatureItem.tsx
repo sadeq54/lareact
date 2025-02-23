@@ -1,6 +1,7 @@
 import { Feature } from "@/types"
 import { Link } from "@inertiajs/react"
 import { useState } from "react"
+import ActionDropdown from "./ActionDropdown"
 
 
 
@@ -42,6 +43,9 @@ function FeatureItem({ feature }: { feature: Feature }) {
                     <button onClick={toggleReadMore} className="text-amber-500 hover:underline">
                         {isExpanded ? 'Read Less' : "Read more"}
                     </button>
+                </div>
+                <div>
+                    <ActionDropdown feature={feature} /> 
                 </div>
             </div>
         </div>

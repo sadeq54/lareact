@@ -20,8 +20,9 @@ export default function Index({ features }: { features: PaginatedData<Feature> }
                 </Link>
             </div>
             
-            {features.data.map((feature, index) => (
-                <FeatureItem feature={feature} key={index} />
+            {features.data.map((feature) => (
+                <FeatureItem feature={feature} key={feature.id} />
+
 
             ))}
 
